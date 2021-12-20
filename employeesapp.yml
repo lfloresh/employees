@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: employees-luan
 spec:
-  replicas: 2
+  replicas: 3
   selector:
     matchLabels:
       app: employees-luan
@@ -21,9 +21,9 @@ spec:
             - name: PHOTOS_BUCKET
               value: "pc5-luan"
             - name: AWS_DEFAULT_REGION
-              value: us-east-1
+              value: "us-east-1"
             - name: DYNAMO_MODE
-              value: on
+              value: "on"
 ---
 apiVersion: v1
 kind: Service
