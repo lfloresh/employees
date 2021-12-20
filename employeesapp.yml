@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: employees-luan
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: employees-luan
+  template:
+    metadata:
+      labels:
+        app: employees-luan
+    spec:
+      containers:
+        - name: employees
+          image: lfloresh/employeesapp:v1
+          ports:
+            - containerPort: 7000
+          env:
+            - name: PHOTOS_BUCKET
+              value: "pc5-luan"
+            - name: AWS_DEFAULT_REGION
+              value: us-east-1
+            - name: DYNAMO_MODE
+              value: on
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: employees-luan
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 7000
+      targetPort: 7000
+  selector:
+    app: employees-luan
